@@ -1,0 +1,43 @@
+group = 'org.kaakaa.ppt-museum'
+version = '0.0.1'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+repositories {
+    maven {
+        url 'https://raw.githubusercontent.com/kaakaa/ppt-museum-webapp/master/mavenRepo'
+    }
+    maven {
+        url 'https://repository.apache.org/content/groups/snapshots'
+    }
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.kaakaa.ppt-museum:ppt-museum-webapp:0.0.4'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    testCompile 'junit:junit:4.12'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://${projectDir}")
+        }
+    }
+}
+
+[install.repositories.mavenInstaller, uploadArchives.repositories.mavenDeployer]*.pom*.whenConfigured { pom ->
+    pom.project {
+        inceptionYear '2016'
+        packaging 'jar'
+        licenses {
+            license {
+                name 'MIT License'
+                url 'https://opensource.org/licenses/mit-license.php'
+                distribution 'repo'
+            }
+        }
+    }
+}

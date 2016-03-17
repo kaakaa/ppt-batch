@@ -1,0 +1,14 @@
+language: java
+jdk:
+- oraclejdk8
+script: "./gradlew build"
+deploy:
+  provider: releases
+  api_key:
+    secure: srAFoZwCXvLJMuXDzimw64i868Wq+3kz4PHEMy85jCUMbT5sfa02Ki+ZL+adsBMNwRkr/nSS9DNkC6Gq0/sy+o1cIAAjOS7cVC3rwYi1xeQp8jUawjHhiUOk/qGeT3eC4yX+8ID1EEaQAq5ps/43nkPU7+NUpc0/bEFTNDuVsSPnxX6q1fKrZT0VAp+B2lTjSwl1tiB9dnCaFtUPqWTLqKjd18mrjX94SlSY1Ssd5Rzzvn4OnyBSn4nLtoB0fF5TDb5Ug2XqsTlK/4RUNg668njgYZhn9XmJB7kTwspbQYTN/quCxkxLARqHBpxv4b19VM6xMhyMuOXCn5ATEhWte0qIyc7LRZPzvahL3bPBAL32ArjJ0koPTslMl321oaU6GpSFwCfxNxtSIWVrrNuxSOF2eHFJZ4Ps5JsgDZcn8W56MA8qSLM++Wcf+SaVG0UXCEPW/QZQHnLytY3C9iuLSfdHmTPXmRQ0Lr5rawNZ/FCohpcafUTDKeEF+Fu87GbEbWwfS5ypeD7lXUoar1w3/u6r8/zIkLoqL5sqpxL8gtXYYHlSyay0iB7Y7stgXxiD7LAFY9JWFDkj8/jbHWZjEzHf+bR8GduA8+UamtNEyfS/Ja7lFJTrE592135Zja/q5XZcpmQ21NMgoOulTi7665vVVHQbdJK3z+vpUBKdyoU=
+  file: build/distributions/ppt-batch-${TRAVIS_TAG}.zip
+  skip_cleanup: true
+  all_branches: true
+  on:
+    repo: kaakaa/ppt-batch
+    tags: true

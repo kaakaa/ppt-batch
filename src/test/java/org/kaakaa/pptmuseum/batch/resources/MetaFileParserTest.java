@@ -2,7 +2,6 @@ package org.kaakaa.pptmuseum.batch.resources;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.kaakaa.pptmuseum.db.document.Slide;
 
 import java.net.URL;
 import java.nio.file.Path;

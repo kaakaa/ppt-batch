@@ -6,10 +6,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.kaakaa.pptmuseum.batch.resources.SlideResource;
 
-import javax.script.ScriptException;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Created by kaakaa on 16/03/16.
@@ -22,13 +20,18 @@ public class HttpClient {
         this.host = host;
     }
 
-    public void upload(Path root) throws IOException, ScriptException {
-        RequestBody requestBody = new SlideResource(root).makeRequestBody();
+    public void upload(Path root) throws Exception {
+        Request request;
+        try {
+            RequestBody requestBody = new SlideResource(root).makeRequestBody();
 
-        Request request = new Request.Builder()
-                .url("http://" + host + "/ppt-museum/upload")
-                .post(requestBody)
-                .build();
+            request = new Request.Builder()
+                    .url("http://" + host + "/ppt-museum/upload")
+                    .post(requestBody)
+                    .build();
+        } catch (Exception e) {
+            throw e;
+        }
 
         final Response response = client.newCall(request).execute();
         if(!response.isSuccessful()){

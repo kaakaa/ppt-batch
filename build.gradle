@@ -3,41 +3,25 @@ version = '0.0.1'
 
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'application'
 
 repositories {
-    maven {
-        url 'https://raw.githubusercontent.com/kaakaa/ppt-museum-webapp/master/mavenRepo'
-    }
-    maven {
-        url 'https://repository.apache.org/content/groups/snapshots'
-    }
     mavenCentral()
 }
 
+mainClassName = 'org.kaakaa.pptmuseum.batch.Main'
+
 dependencies {
-    compile 'org.kaakaa.ppt-museum:ppt-museum-webapp:0.0.4'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'args4j:args4j:2.33'
     testCompile 'junit:junit:4.12'
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "file://${projectDir}")
-        }
-    }
+task createUploadSampleResource {
+    def resource = file("${projectDir}/upload_sample")
+    outputs.dir resource
 }
 
-[install.repositories.mavenInstaller, uploadArchives.repositories.mavenDeployer]*.pom*.whenConfigured { pom ->
-    pom.project {
-        inceptionYear '2016'
-        packaging 'jar'
-        licenses {
-            license {
-                name 'MIT License'
-                url 'https://opensource.org/licenses/mit-license.php'
-                distribution 'repo'
-            }
-        }
-    }
+applicationDistribution.from(createUploadSampleResource) {
+    into 'uploads'
 }

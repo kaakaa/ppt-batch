@@ -1,9 +1,11 @@
 package org.kaakaa.pptmuseum.batch;
 
+import org.kaakaa.pptmuseum.batch.options.UploadOptions;
+
 import javax.script.ScriptException;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -11,16 +13,23 @@ import java.nio.file.Paths;
  * Created by kaakaa on 16/03/16.
  */
 public class Batch {
+    private String url;
+    private URI resourceRoot;
+
+    public Batch(UploadOptions option) {
+        this.url = option.getPptmusesumURL();
+        this.resourceRoot = option.getResourceRoot();
+    }
+
     public void exec() throws URISyntaxException, IOException {
         HttpClient httpClient = new HttpClient("localhost:4567");
 
-        URL url = Batch.class.getClassLoader().getResource("test");
-        Files.list(Paths.get(url.toURI())).forEach(dir -> {
+        Files.list(Paths.get(this.resourceRoot)).forEach(dir -> {
             try {
                 httpClient.upload(dir);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ScriptException e) {
+                System.out.println("upload complete: " + dir.toString());
+            } catch (Exception e) {
+                System.err.println("upload error: " + dir.toString());
                 e.printStackTrace();
             }
         });

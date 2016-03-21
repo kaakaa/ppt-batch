@@ -22,7 +22,7 @@ public class Batch {
     }
 
     public void exec() throws URISyntaxException, IOException {
-        HttpClient httpClient = new HttpClient("localhost:4567");
+        HttpClient httpClient = new HttpClient(this.url);
 
         Files.list(Paths.get(this.resourceRoot)).forEach(dir -> {
             try {

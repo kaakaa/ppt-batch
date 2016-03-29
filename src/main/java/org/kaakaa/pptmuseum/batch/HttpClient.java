@@ -26,11 +26,7 @@ public class HttpClient {
             RequestBody requestBody = new SlideResource(root).makeRequestBody();
 
             request = new Request.Builder()
-<<<<<<< HEAD
                     .url(url)
-=======
-                    .url(this.host + "/ppt-museum/upload")
->>>>>>> 89c999c0798ccbd389bfd2a26fdb569361d2332a
                     .post(requestBody)
                     .build();
         } catch (Exception e) {

@@ -26,7 +26,7 @@ public class SlideResource {
         RequestBody requestBody = getMediaFile(dir);
 
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("title", String.valueOf(getString(meta, "title").orElse("NoTitle")))
+                .addFormDataPart("title", String.valueOf(getString(meta, "title").orElse(getString(meta, "filename").orElse("NoTitle"))))
                 .addFormDataPart("desc", String.valueOf(getString(meta, "desc").orElse("No Description")))
                 .addFormDataPart("tags", String.valueOf(getString(meta, "tags").orElse("")))
                 .addFormDataPart("file", "uploadfile", requestBody)

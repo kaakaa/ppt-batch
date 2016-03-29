@@ -14,10 +14,10 @@ import java.nio.file.Path;
  */
 public class HttpClient {
     private final OkHttpClient client = new OkHttpClient();
-    private final String host;
+    private final String url;
 
-    public HttpClient(String host) {
-        this.host = host;
+    public HttpClient(String url) {
+        this.url = url;
     }
 
     public void upload(Path root) throws Exception {
@@ -26,7 +26,7 @@ public class HttpClient {
             RequestBody requestBody = new SlideResource(root).makeRequestBody();
 
             request = new Request.Builder()
-                    .url("http://" + host + "/ppt-museum/upload")
+                    .url(url)
                     .post(requestBody)
                     .build();
         } catch (Exception e) {

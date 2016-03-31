@@ -9,16 +9,16 @@ import java.net.URI;
  * Created by kaakaa on 16/03/17.
  */
 public class UploadOptions {
-    @Option(name = "-h", aliases="--host", usage = "ppt-museum host name")
+    @Option(name = "--ip", aliases="-i", usage = "ppt-museum host name")
     private String host = "127.0.0.1";
 
-    @Option(name = "-p", aliases="--port", usage = "ppt-museum port")
+    @Option(name = "--port", aliases="-p", usage = "ppt-museum port")
     private int port = 4567;
 
-    @Option(name = "-d", aliases="--directory",usage = "root directory for uploads")
+    @Option(name = "--directory", aliases="-d",usage = "root directory for uploads")
     private String path = new File("./uploads").getAbsolutePath();
 
-    @Option(name="-h", aliases="--help", usage="print usage message and exit")
+    @Option(name="--help", aliases="-h", usage="print usage message and exit")
     private boolean helpOption;
     
     private static final String UPLOAD_PATH = "/ppt-museum/upload";

@@ -22,7 +22,7 @@ public class Main {
             return;
         }
 
-        if(!option.isHelpOption()){
+        if(option.isHelpOption()){
             System.out.println("Usage:");
             parser.printUsage(System.out);
             return;

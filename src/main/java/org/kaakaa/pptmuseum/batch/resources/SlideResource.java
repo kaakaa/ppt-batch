@@ -38,14 +38,20 @@ public class SlideResource {
     }
 
     private RequestBody getMediaFile(Path dir) {
+
+        File[] pptx = dir.toFile().listFiles(f -> f.getName().endsWith(".pptx"));
+        if (pptx.length == 1) {
+            return RequestBody.create(MediaType.parse("application/vnd.openxmlformats-officedocument.presentationml.presentation"), pptx[0]);
+        }
+
+        File[] pptm = dir.toFile().listFiles(f -> f.getName().endsWith(".pptm"));
+        if (pptm.length == 1) {
+            return RequestBody.create(MediaType.parse("application/vnd.ms-powerpoint.presentation.macroEnabled.12"), pptm[0]);
+        }
+
         File[] ppt = dir.toFile().listFiles(f -> f.getName().endsWith(".ppt"));
         if (ppt.length == 1) {
             return RequestBody.create(MediaType.parse("application/vnd.ms-powerpoint"), ppt[0]);
-        }
-
-        File[] pptx = dir.toFile().listFiles(f -> f.getName().endsWith(".ppt"));
-        if (pptx.length == 1) {
-            return RequestBody.create(MediaType.parse("application/vnd.openxmlformats-officedocument.presentationml.presentation"), pptx[0]);
         }
 
         File[] pdf = dir.toFile().listFiles(f -> f.getName().endsWith(".pdf"));

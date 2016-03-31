@@ -1,6 +1,8 @@
 package org.kaakaa.pptmuseum.batch;
 
 import org.kaakaa.pptmuseum.batch.options.UploadOptions;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -11,7 +13,20 @@ import java.net.URISyntaxException;
 public class Main {
     public static void main(String[] args) {
         UploadOptions option = new UploadOptions();
-        option.parse(args);
+        CmdLineParser parser = new CmdLineParser(option);
+
+        try {
+            parser.parseArgument(args);
+        } catch (CmdLineException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        if(!option.isHelpOption()){
+            System.out.println("Usage:");
+            parser.printUsage(System.out);
+            return;
+        }
 
         Batch batch = new Batch(option);
         try {

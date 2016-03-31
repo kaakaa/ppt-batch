@@ -1,7 +1,5 @@
 package org.kaakaa.pptmuseum.batch.options;
 
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
 import java.io.File;
@@ -11,25 +9,21 @@ import java.net.URI;
  * Created by kaakaa on 16/03/17.
  */
 public class UploadOptions {
-    @Option(name = "-h", usage = "ppt-museum host name")
+    @Option(name = "-h", aliases="--host", usage = "ppt-museum host name")
     private String host = "127.0.0.1";
 
-    @Option(name = "-p", usage = "ppt-museum port")
+    @Option(name = "-p", aliases="--port", usage = "ppt-museum port")
     private int port = 4567;
 
-    @Option(name = "-d", usage = "root directory for uploads")
+    @Option(name = "-d", aliases="--directory",usage = "root directory for uploads")
     private String path = new File("./uploads").getAbsolutePath();
 
+    @Option(name="-h", aliases="--help", usage="print usage message and exit")
+    private boolean helpOption;
+    
     private static final String UPLOAD_PATH = "/ppt-museum/upload";
 
     public void parse(String[] args) {
-        CmdLineParser parser = new CmdLineParser(this);
-
-        try {
-            parser.parseArgument(args);
-        } catch (CmdLineException e) {
-            e.printStackTrace();
-        }
     }
 
     public String getPath() {
@@ -53,5 +47,9 @@ public class UploadOptions {
 
     public URI getResourceRoot() {
         return new File(this.path).toURI();
+    }
+
+    public boolean isHelpOption() {
+        return this.helpOption;
     }
 }

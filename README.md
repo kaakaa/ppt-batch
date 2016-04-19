@@ -2,6 +2,10 @@
 
 Bulk upload tool for (kaakaa/ppt-museum)[https://github.com/kaakaa/ppt-museum].  
 
+# Require
+
+* Java 1.8.0_60+
+
 # Usage
 
 ### Download
